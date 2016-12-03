@@ -47,6 +47,9 @@ gem 'figaro', '1.0'
 # Use bootstrap for layouts
 gem 'bootstrap-sass'
 
+# Use pundit for authorization
+gem 'pundit'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
