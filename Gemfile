@@ -50,6 +50,9 @@ gem 'bootstrap-sass'
 # Use pundit for authorization
 gem 'pundit'
 
+# Use faker for seeding data
+gem 'faker'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
