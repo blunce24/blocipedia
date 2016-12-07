@@ -53,6 +53,9 @@ gem 'pundit'
 # Use faker for seeding data
 gem 'faker'
 
+# Use stripe to charge accounts
+gem 'stripe'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
