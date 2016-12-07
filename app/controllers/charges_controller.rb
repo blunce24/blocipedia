@@ -11,8 +11,10 @@ class ChargesController < ApplicationController
       :source  => params[:stripeToken]
     )
 
+    current_user.stripe_id = customer.id
+
     charge = Stripe::Charge.create(
-      :customer    => @customer.id,
+      :customer    => customer.id,
       :amount      => @amount,
       :description => 'Rails Stripe customer',
       :currency    => 'usd'
@@ -21,15 +23,13 @@ class ChargesController < ApplicationController
     current_user.role = 'premium'
     current_user.save!
 
-    @id = customer.id
-
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_charge_path
   end
 
   def destroy
-    cu = Stripe::Customer.retrieve(@id)
+    cu = Stripe::Customer.retrieve(current_user.stripe_id)
     if cu.delete
       flash[:notice] = "\"#{current_user.email}\" was downgraded to standard successfully."
       current_user.role = 'standard'
