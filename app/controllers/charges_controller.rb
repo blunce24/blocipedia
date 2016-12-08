@@ -29,8 +29,8 @@ class ChargesController < ApplicationController
   end
 
   def destroy
-    cu = Stripe::Customer.retrieve(current_user.stripe_id)
-    if cu.delete
+    customer = Stripe::Customer.retrieve(current_user.stripe_id)
+    if customer.delete
       flash[:notice] = "\"#{current_user.email}\" was downgraded to standard successfully."
       current_user.role = 'standard'
       current_user.save!
