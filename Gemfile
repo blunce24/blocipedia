@@ -56,6 +56,9 @@ gem 'faker'
 # Use stripe to charge accounts
 gem 'stripe'
 
+# Use redcarpet to parse markdown
+gem 'redcarpet'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
