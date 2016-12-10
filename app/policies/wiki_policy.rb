@@ -12,20 +12,9 @@ class WikiPolicy < ApplicationPolicy
       if user.role == 'admin'
         wikis = scope.all
       elsif user.role == 'premium'
-        all_wikis = scope.all
-        all_wikis.each do |wiki|
-          if !wiki.private || wiki.user_id == user.id
-            wikis << wiki
-          end
-        end
+        wikis = scope.where("private = :private or user_id = :user_id", { private: false, user_id: user.id })
       else
-        all_wikis = scope.all
-        wikis = []
-        all_wikis.each do |wiki|
-          if !wiki.private
-            wikis << wiki
-          end
-        end
+        wikis = scope.where("private = :private", { private: false })
       end
       wikis
     end
