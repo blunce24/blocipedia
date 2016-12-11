@@ -10,11 +10,13 @@
       <%= wiki.label :body %>
       <%= wiki.text_area :body, class: 'form-control', placeholder: 'Enter Wiki information here' %>
     </div>
-    <div class="form-group">
-      <%= wiki.label :private, class: 'checkbox' do %>
-        <%= wiki.check_box :private %> Private topic
+    <% if current_user.admin? || current_user.premium? %>
+      <div class="form-group">
+        <%= wiki.label :private, class: 'checkbox' do %>
+          <%= wiki.check_box :private %> Private topic
         <% end %>
       </div>
-      <%= wiki.submit "Save", class: 'btn btn-success' %>
-      <% end %>
+    <% end %>
+    <%= wiki.submit "Save", class: 'btn btn-success' %>
+    <% end %>
 </div>

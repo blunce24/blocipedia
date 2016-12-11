@@ -1,3 +1,4 @@
+include ChargesHelper
 class ChargesController < ApplicationController
   def new
   end
@@ -32,8 +33,7 @@ class ChargesController < ApplicationController
     customer = Stripe::Customer.retrieve(current_user.stripe_id)
     if customer.delete
       flash[:notice] = "\"#{current_user.email}\" was downgraded to standard successfully."
-      current_user.role = 'standard'
-      current_user.save!
+      downgrade_user
       redirect_to new_charge_path
     else
       flash.now[:alert] = "There was an error downgrading the user."

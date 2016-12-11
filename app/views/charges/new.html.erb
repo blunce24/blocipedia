@@ -21,5 +21,5 @@
     <% end %>
 <% elsif current_user.premium? %>
   <h3>Follow the link below to downgrade your account to standard.</h3>
-  <%= link_to "Downgrade Account", @charge, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to downgrade your account?'} %>
+  <%= link_to "Downgrade Account", @charge, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to downgrade your account? Downgrading your account will result in your private wikis becoming public.'} %>
 <% end %>
