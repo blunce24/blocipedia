@@ -20,3 +20,7 @@
     <%= wiki.submit "Save", class: 'btn btn-success' %>
     <% end %>
 </div>
+
+<div>
+  <%= render partial: 'collaborators/collaborator_form', locals: { wiki: @wiki } %>
+</div>

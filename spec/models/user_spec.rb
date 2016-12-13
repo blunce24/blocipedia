@@ -8,6 +8,7 @@ RSpec.describe User, type: :model do
   end
 
   it { is_expected.to have_many(:wikis) }
+  it { is_expected.to have_many(:collaborators)}
 
   describe "attributes" do
     it "should have name and email attributes" do
@@ -84,6 +85,21 @@ RSpec.describe User, type: :model do
       it "returns true for #admin?" do
         expect(@user.admin?).to be_truthy
       end
+    end
+  end
+
+  describe "#collaborator_for(wiki)" do
+    before do
+      @wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false, user: @user)
+    end
+
+    it "returns nil if the user is not a collaborator on the wiki" do
+      expect(@user.collaborator_for(@wiki)).to be_nil
+    end
+
+    it "returns the collaborator if it exists" do
+      collaborator = @user.collaborators.where(wiki: @wiki).create
+      expect(@user.collaborator_for(@wiki)).to eq(collaborator)
     end
   end
 end
