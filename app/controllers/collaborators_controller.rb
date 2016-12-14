@@ -6,8 +6,7 @@ class CollaboratorsController < ApplicationController
   def create
     @collaborator_user = User.find_by_email(params[:collaborator])
     @wiki = Wiki.find(params[:wiki_id])
-    @all = Collaborator.where("wiki_id = :wiki_id", { wiki_id: @wiki.id})
-    if @all.exists?(user_id: @collaborator_user.id)
+    if @wiki.collaborators.exists?(user_id: @collaborator_user.id)
       flash[:notice] = "#{@collaborator_user.email} is already a collaborator."
       redirect_to @wiki
     else
@@ -25,7 +24,7 @@ class CollaboratorsController < ApplicationController
   def destroy
     @wiki = Wiki.find(params[:wiki_id])
     @collaborator = Collaborator.find(params[:id])
-    @collaborator_user = user = User.find(@collaborator.user_id)
+    @collaborator_user = User.find(@collaborator.user_id)
 
     if @collaborator.destroy
       flash[:notice] = "Collaborator #{@collaborator_user.email} was deleted."

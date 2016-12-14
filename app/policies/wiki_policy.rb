@@ -14,16 +14,14 @@ class WikiPolicy < ApplicationPolicy
       elsif user.role == 'premium'
         all_wikis = scope.all
         all_wikis.each do |wiki|
-          collaborator = Collaborator.where("wiki_id = :wiki_id and user_id = :user_id", { wiki_id: wiki.id, user_id: user.id })
-          if !wiki.private || wiki.user_id == user.id || collaborator
+          if !wiki.private || wiki.user == user || wiki.collaborators.exists?(user_id: user.id)
             wikis << wiki
           end
         end
       else
         all_wikis = scope.all
         all_wikis.each do |wiki|
-          collaborator = Collaborator.where("wiki_id = :wiki_id and user_id = :user_id", { wiki_id: wiki.id, user_id: user.id })
-          if !wiki.private || collaborator
+          if !wiki.private || wiki.collaborators.exists?(user_id: user.id)
             wikis << wiki
           end
         end
