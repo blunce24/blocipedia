@@ -1,0 +1,16 @@
+<% if current_user.premium? || current_user.admin? %>
+  <h3>Add Collaborators</h3>
+
+  <%= form_for [wiki , Collaborator.new] do |c| %>
+    <%= email_field_tag :collaborator %>
+    <%= c.submit "Add collaborator", class: 'btn btn-primary' %>
+  <% end %>
+
+  <h3>Manage Collaborators</h3>
+
+  <% wiki.collaborators.each do |c| %>
+    <% user = User.find(c.user_id) %>
+    <%= user.email %>
+    <%= link_to "Delete", wiki_collaborator_path(@wiki, c), class: 'btn btn-danger', method: :delete%>
+  <% end %>
+<% end %>
