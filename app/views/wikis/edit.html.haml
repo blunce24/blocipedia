@@ -1,0 +1,23 @@
+%h1
+  Edit Wiki
+
+.row
+  = form_for @wiki do |wiki|
+    .form-group
+      = wiki.label :title
+      = wiki.text_field :title, class: 'form-control', placeholder: 'Enter Wiki Title'
+    .form-group
+      = wiki.label :body
+      = wiki.text_area :body, class: 'form-control', placeholder: 'Enter Wiki information here'
+
+    - if current_user.admin? || current_user.premium?
+      .form-group
+        = wiki.label :private, class: 'checkbox' do
+          = wiki.check_box :private
+        Private topic
+
+    = wiki.submit "Save", class: 'btn btn-success'
+
+
+
+  = render partial: 'collaborators/collaborator_form', locals: { wiki: @wiki }
