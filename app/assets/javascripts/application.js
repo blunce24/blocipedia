@@ -15,3 +15,4 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+//= require simple_form_epic_editor

@@ -1,22 +1,12 @@
 <h1>New Wiki</h1>
 
 <div class="row">
-  <%= form_for @wiki do |wiki| %>
-    <div class="form-group">
-      <%= wiki.label :title %>
-      <%= wiki.text_field :title, class: 'form-control', placeholder: 'Enter Wiki Title' %>
-    </div>
-    <div class="form-group">
-      <%= wiki.label :body %>
-      <%= wiki.text_area :body, class: 'form-control', placeholder: 'Enter Wiki information here' %>
-    </div>
+  <%= simple_form_for @wiki do |wiki| %>
+      <%= wiki.input :title, as: :text, placeholder: 'Enter Wiki Title', label_html: { class: 'form-control' } %>
+      <%= wiki.input :body, as: :epic_editor, placeholder: 'Enter Wiki information here', label_html: { class: 'form-control' } %>
     <% if current_user.admin? || current_user.premium? %>
-      <div class="form-group">
-        <%= wiki.label :private, class: 'checkbox' do %>
-          <%= wiki.check_box :private %> Private topic
-        <% end %>
-      </div>
+        <%= wiki.input :private, as: :check_boxes %>
     <% end %>
-    <%= wiki.submit "Save", class: 'btn btn-success' %>
-    <% end %>
+    <%= wiki.button :submit, label: "Save", label_html: { class: 'btn btn-success' } %>
+  <% end %>
 </div>
