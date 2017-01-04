@@ -8,7 +8,9 @@
     </div>
     <div class="form-group">
       <%= wiki.label :body %>
-      <%= wiki.text_area :body, class: 'form-control', placeholder: 'Enter Wiki information here' %>
+      <%= md_simple_editor do %>
+        <%= wiki.text_area :body, class: 'form-control', placeholder: 'Enter Wiki information here' %>
+      <% end %>
     </div>
     <% if current_user.admin? || current_user.premium? %>
       <div class="form-group">
